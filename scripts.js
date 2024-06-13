@@ -2,14 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const backendUrl = 'http://silasmc.duckdns.org:8585';
     
     const loginContainer = document.getElementById('login-container');
-    const registerContainer = document.getElementById('register-container');
     const chatContainer = document.getElementById('chat-container');
     const loginForm = document.getElementById('login-form');
-    const loginUsername = document.getElementById('login-username');
-    const loginPassword = document.getElementById('login-password');
-
-    const registerForm = document.getElementById('register-form');
-    const registerKey = document.getElementById('register-key');
+    const loginKey = document.getElementById('login-key');
 
     const messageForm = document.getElementById('message-form');
     const messageInput = document.getElementById('message-input');
@@ -28,41 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.display = isVisible ? 'block' : 'none';
     };
 
-    const checkLogin = () => {
-        const isLoggedIn = !!localStorage.getItem('username');
-        setContainerVisibility(loginContainer, !isLoggedIn);
-        setContainerVisibility(registerContainer, !isLoggedIn);
-        setContainerVisibility(chatContainer, isLoggedIn);
-    };
-
-    checkLogin();
-
-    loginForm.addEventListener('submit', async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        const username = loginUsername.value;
-        const password = loginPassword.value;
+        const key = loginKey.value;
 
         const response = await fetch(`${backendUrl}/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
-        });
-        const result = await response.json();
-        if (response.status === 200) {
-            localStorage.setItem('username', username);
-            checkLogin();
-        } else {
-            alert(result.message);
-        }
-    });
-
-    registerForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const key = registerKey.value;
-
-        const response = await fetch(`${backendUrl}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,13 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({ key }),
         });
         const result = await response.json();
-        if (response.status === 201) {
-            alert('Registered successfully! Now login with your credentials.');
-            registerKey.value = '';
+        
+        if (response.status === 200) {
+            if (result.message.includes('Dev-Mode aktiviert')) {
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'lime';
+                document.body.style.fontFamily = 'monospace';
+            } else {
+                setContainerVisibility(loginContainer, false);
+                setContainerVisibility(chatContainer, true);
+            }
         } else {
             alert(result.message);
         }
-    });
+    };
+
+    loginForm.addEventListener('submit', handleLogin);
 
     messageForm.addEventListener('submit', async (e) => {
         e.preventDefault();
