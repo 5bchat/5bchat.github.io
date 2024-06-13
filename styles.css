@@ -8,7 +8,7 @@ body {
     margin: 20px auto;
 }
 
-#login-container, #register-container, #chat-container, #private-chat-container, #admin-functions {
+#login-container, #chat-container, #private-chat-container, #admin-functions {
     margin-bottom: 20px;
 }
 
