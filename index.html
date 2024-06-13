@@ -1,2 +1,50 @@
-
-In Bau
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5b Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="login-container" class="container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="text" id="login-username" placeholder="Username">
+            <input type="password" id="login-password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <div id="register-container" class="container">
+        <h2>Register</h2>
+        <form id="register-form">
+            <input type="text" id="register-key" placeholder="Key (e.g., 4423:5566,Lia-NOAD)">
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <div id="chat-container" class="container">
+        <div id="messages"></div>
+        <form id="message-form">
+            <input type="text" id="message-input" placeholder="Type your message here">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <div id="private-chat-container" class="container">
+        <form id="private-chat-form">
+            <input type="text" id="private-chat-name" placeholder="Private chat name">
+            <button type="submit">Create Private Chat</button>
+        </form>
+    </div>
+    <div id="admin-functions" class="container">
+        <form id="vote-admin-out-form">
+            <input type="text" id="admin-id" placeholder="Admin ID to vote out">
+            <button type="submit">Vote Admin Out</button>
+        </form>
+        <form id="report-bug-form">
+            <textarea id="bug-description" placeholder="Describe the bug"></textarea>
+            <button type="submit">Report Bug</button>
+        </form>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
